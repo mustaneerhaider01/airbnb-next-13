@@ -17,7 +17,7 @@ export async function POST(req: Request) {
   if (!validationResult.success) {
     return NextResponse.json(
       { message: "Invalid credentials" },
-      { status: 422 }
+      { status: 409 }
     );
   }
 
@@ -32,7 +32,7 @@ export async function POST(req: Request) {
   if (userExists) {
     return NextResponse.json(
       { message: "Email already exists" },
-      { status: 400 }
+      { status: 409 }
     );
   }
 

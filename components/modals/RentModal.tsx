@@ -13,7 +13,7 @@ import Counter from "../inputs/Counter";
 import ImageUpload from "../inputs/ImageUpload";
 import Input from "../inputs/Input";
 import toast from "react-hot-toast";
-import axios from "axios";
+import axios, { AxiosError } from "axios";
 import { useRouter } from "next/navigation";
 
 enum STEPS {
@@ -86,16 +86,21 @@ function RentModal() {
     const id = toast.loading("Creating listing...");
 
     axios
-      .post("/api/listings", data)
-      .then(() => {
-        toast.success("Listing created!", { id });
+      .post("/api/listings", { ...data, price: parseInt(data.price, 10) })
+      .then((res) => {
+        toast.success(res.data?.message, { id });
         router.refresh();
         reset();
         setStep(STEPS.CATEGORY);
+        rentModal.onClose();
       })
       .catch((error) => {
-        console.log(error);
-        toast.error("Something went wrong.", { id });
+        if (error instanceof AxiosError) {
+          toast.error(
+            error.response?.data?.message || "Something went wrong.",
+            { id }
+          );
+        }
       })
       .finally(() => {
         setIsLoading(false);

@@ -38,7 +38,7 @@ export async function POST(req: Request) {
   const validation = createListingSchema.safeParse(body);
   if (!validation.success) {
     return NextResponse.json(
-      { message: "Missing required paramters for creating the listing" },
+      { message: "Missing required paramters for creating the listing." },
       { status: 409 }
     );
   }

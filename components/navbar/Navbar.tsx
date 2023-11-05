@@ -1,4 +1,4 @@
-import { SafeUser } from "@/app/types";
+import { SafeUser } from "@/types";
 import Container from "../Container";
 import Logo from "./Logo";
 import Search from "./Search";

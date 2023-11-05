@@ -2,7 +2,7 @@
 
 import useRentModal from "@/hooks/useRentModal";
 import Modal from "./Modal";
-import { useMemo, useState } from "react";
+import { useCallback, useMemo, useState } from "react";
 import Heading from "../Heading";
 import { CATEGORIES } from "@/data";
 import CategoryInput from "../inputs/CategoryInput";
@@ -60,21 +60,24 @@ function RentModal() {
   const selectedBathroomCount: number = watch("bathroomCount");
   const selectedImageSrc: string = watch("imageSrc");
 
-  const setCustomValue = (id: string, value: any) => {
-    setValue(id, value, {
-      shouldDirty: true,
-      shouldTouch: true,
-      shouldValidate: true,
-    });
-  };
+  const setCustomValue = useCallback(
+    (id: string, value: any) => {
+      setValue(id, value, {
+        shouldDirty: true,
+        shouldTouch: true,
+        shouldValidate: true,
+      });
+    },
+    [setValue]
+  );
 
-  const onBack = () => {
+  const onBack = useCallback(() => {
     setStep((value) => value - 1);
-  };
+  }, []);
 
-  const onNext = () => {
+  const onNext = useCallback(() => {
     setStep((value) => value + 1);
-  };
+  }, []);
 
   const onSubmit: SubmitHandler<FieldValues> = (data) => {
     if (step !== STEPS.PRICE) {

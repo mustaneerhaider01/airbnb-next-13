@@ -41,10 +41,10 @@ function RegisterModal() {
       .then((res) => {
         toast.success(res.data?.message);
         registerModal.onClose();
+        loginModal.onOpen();
         reset();
       })
       .catch((error) => {
-        console.log(error);
         if (error instanceof AxiosError) {
           toast.error(error.response?.data?.message);
         }

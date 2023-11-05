@@ -13,8 +13,9 @@ import { FaSkiing } from "react-icons/fa";
 import { BsSnow } from "react-icons/bs";
 import { IoDiamond } from "react-icons/io5";
 import { MdOutlineVilla } from "react-icons/md";
+import { Category } from "@/types";
 
-export const CATEGORIES = [
+export const CATEGORIES: Category[] = [
   {
     label: "Beach",
     icon: TbBeach,
